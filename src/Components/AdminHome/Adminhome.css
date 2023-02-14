@@ -1,0 +1,8 @@
+.adminhome{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(236, 236, 238);
+    height: 90vh;
+
+}
