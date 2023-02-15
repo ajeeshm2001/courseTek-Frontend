@@ -49,7 +49,7 @@ function Admincourse() {
     <label htmlFor="inputAddress2">Subject 3</label>
     <input type="text" className="form-control" id="inputAddress2" placeholder="Subject 3" {...register("subject3")}/>
   </div>
-  <button type="submit" className="btn btn-dark" >Add Course</button>
+  <button type="submit" className="btn btn-dark" style={{width:"650px"}} >Add Course</button>
 </form>
     </div>
   )

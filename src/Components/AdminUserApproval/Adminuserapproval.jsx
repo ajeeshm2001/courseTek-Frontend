@@ -4,6 +4,7 @@ import '../AdminUserApproval/Adminuserlist.css'
 
 function Adminuserapproval() {
     const [users,setUsers] = useState([])
+    const [loading,setLoading] = useState(true)
     useEffect(()=>{
         const users = async()=>{
             const {data} = await axios.get('http://localhost:4000/admin/approvallist')
@@ -12,12 +13,20 @@ function Adminuserapproval() {
         users();
     },[])
     const approve = async(id)=>{
-        console.log(id);
+        setLoading(false)
         setUsers(users.filter(user=>{
-                console.log(user._id!==id);
                     return user._id!==id
                 }))
         const {data} = await axios.patch(`http://localhost:4000/admin/approval/${id}`)
+        setLoading(true)
+    }
+    const disapprove = async(id)=>{
+        setUsers(users.filter(user=>{
+            return user._id!==id
+        }))
+        axios.delete(`http://localhost:4000/admin/disapproval/${id}`,{}).then((data)=>{
+            console.log(data);
+        })
     }
   return (
         
@@ -34,6 +43,7 @@ function Adminuserapproval() {
   </thead>
   <tbody>
     {
+        users[0]?loading?
         users.map((users,index)=>{
             return (
                 <tr>
@@ -43,12 +53,12 @@ function Adminuserapproval() {
                 <td><b>{users.course}</b></td>
                 <td>
                     <button onClick={()=>{approve(users._id)}} className='btn btn-success me-3'>Approve</button>
-                    <button className='btn btn-danger'>Disapprove</button>
+                    <button onClick={()=>{disapprove(users._id)}} className='btn btn-danger'>Disapprove</button>
                 </td>
               </tr>
             )
            
-        })
+        }):<div class="lds-facebook"><div></div><div></div><div></div></div>:<h1 className='text-center text-danger mt-5'>No Users Found!</h1>
         }
    
   </tbody>

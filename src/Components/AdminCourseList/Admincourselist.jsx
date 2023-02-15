@@ -17,7 +17,6 @@ function Admincourselist() {
     }, [setCourse])
 
     const editCourse = (id)=>{
-        console.log(id);
         navigate(`/admineditcourse/${id}`)
     }
     const deleteCourse = async(id)=>{
