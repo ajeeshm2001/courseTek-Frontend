@@ -7,17 +7,17 @@ function Adminscheduledclass() {
     useEffect(()=>{
         const classes = async()=>{
             const {data} = await axios.get("http://localhost:4000/admin/scheduled")
-            console.log("kkk");
             setSub(data.data)
         }
         classes();
     },[])
     const handleDate = (e)=>{
         setDate(e.target.value)
-        setSub(sub.filter(course=>{
-            return course.date==date
-        }))
+       
     }
+    const filterData = sub.filter(course=>{
+        return course.date.includes(date)
+    })
   return (
     <div className='m-5'>
 
@@ -32,20 +32,23 @@ function Adminscheduledclass() {
     </div>
     <div class="card-body">
      {  
-        sub.map((sub)=>{
+
+        filterData.length>0?
+        filterData.map((sub)=>{
             return(
                 <div class="card mb-3">
                 <div class="card-body bg-light">
                   <div className='d-md-flex justify-content-between m-3'>
                       <h5 >Date : {sub.date}</h5>
                       <h5 >Course Name : <span className='text-success'>{sub.courses[0].coursename}</span></h5>
-                      <h5 >Subject : {sub.subject}</h5>
+                      <h5 >Subject : <span className='text-warning'>{sub.subject}</span></h5>
                       <h5 >Available Slots : <span className='text-danger'>{sub.slot}</span></h5>
                   </div>
                 </div>
               </div>
             ) 
-        })
+        }):
+        <div>No Classes</div>
          
      }
    

@@ -27,7 +27,6 @@ function Adminclassschedule() {
         const course =async()=>{
             axios.get("http://localhost:4000/admin/getcourse").then((response)=>{
                 setCourse(response.data.course)
-                console.log(response.data.course);
 
             })
             
